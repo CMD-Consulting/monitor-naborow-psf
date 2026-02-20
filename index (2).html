@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor Naborów PSF Śląskie</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:linear-gradient(145deg,#0f172a,#1e1b4b 50%,#0f172a);font-family:'Segoe UI',-apple-system,sans-serif;color:#e2e8f0}
+.w{max-width:940px;margin:0 auto;padding:0 16px}
+.hd{background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);padding:18px 0 0}
+h1{font-size:19px;font-weight:800;background:linear-gradient(90deg,#60a5fa,#c084fc,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2px}
+.su{font-size:11px;color:#475569;margin-bottom:12px}
+.wt{display:flex;gap:0;overflow-x:auto;border-bottom:2px solid rgba(255,255,255,0.06)}
+.wt button{padding:9px 16px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:0;color:#475569;border-bottom:2px solid transparent;margin-bottom:-2px;text-align:left;font-family:inherit;white-space:nowrap}
+.wt button.on{color:#60a5fa;border-bottom-color:#60a5fa}
+.wt small{display:block;font-size:10px;font-weight:500;opacity:.7}
+.fb{display:flex;gap:6px;margin:14px 0 6px;flex-wrap:wrap;align-items:center}
+.fl{font-size:11px;color:#475569;font-weight:700;margin-right:2px}
+.fg{display:inline-flex;background:rgba(255,255,255,0.04);border-radius:8px;padding:2px;border:1px solid rgba(255,255,255,0.06);flex-wrap:wrap}
+.fp{padding:6px 12px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:0;color:#64748b;font-family:inherit;white-space:nowrap;transition:all .12s}
+.fp:hover{color:#94a3b8}
+.fp.on{color:#60a5fa;background:rgba(96,165,250,0.15)}
+.ss{display:flex;gap:8px;margin:12px 0 16px;flex-wrap:wrap}
+.ss>div{flex:1 1 100px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:9px;padding:10px 12px}
+.ss b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.ss span{font-size:9px;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.sg{margin-bottom:20px}
+.sh{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.sb{width:3px;height:20px;border-radius:2px}
+.sh h2{font-size:14px;font-weight:700;text-transform:capitalize;margin:0}
+.bg{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700}
+.cl{display:flex;flex-direction:column;gap:7px}
+.cd{border-radius:11px;padding:13px 16px}
+.ct{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.cm{flex:1;min-width:180px}
+.tg{display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap}
+.tg span{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+.t1{background:rgba(74,222,128,0.15);color:#4ade80}
+.t6{background:rgba(251,146,60,0.15);color:#fb923c}
+.tt{background:rgba(255,255,255,0.05);color:#94a3b8;font-weight:600}
+.cd h3{font-size:14px;font-weight:700;color:#f1f5f9;margin:0}
+.nm{font-size:11px;color:#64748b}
+.dt{font-size:12px;color:#94a3b8;margin-top:3px}
+.sz{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;align-items:center}
+.sz span{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700}
+.cs{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.bn{padding:7px 13px;border-radius:7px;text-decoration:none;font-size:11px;font-weight:700;white-space:nowrap;display:inline-block}
+.em{text-align:center;padding:40px;color:#475569;font-size:13px}
+.ft{margin:24px 0 30px;padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:9px;border:1px solid rgba(255,255,255,0.04);font-size:11px;color:#475569;line-height:1.7}
+@media(max-width:600px){.ct{flex-direction:column}.cs{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const {useState,useEffect}=React,h=React.createElement;
+
+const D={"10.17":[
+{od:"2025-12-29",do:"2026-01-02",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2025-12-29",do:"2026-01-02",op:"LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-05",do:"2026-01-09",op:"GAPR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-05",do:"2026-01-09",op:"SMG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-12",do:"2026-01-16",op:"FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-12",do:"2026-01-16",op:"GDP C2",sub:"centralny",typ:"szkolenia"},{od:"2026-01-12",do:"2026-01-16",op:"LOK C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-19",do:"2026-01-23",op:"ŚIP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"KCP C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-26",do:"2026-01-30",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"LG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-02",do:"2026-02-06",op:"AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-02",do:"2026-02-06",op:"WC C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-02",do:"2026-02-06",op:"PNT C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-09",do:"2026-02-13",op:"FG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-16",do:"2026-02-20",op:"LOK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"KCP C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-23",do:"2026-02-27",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"SCD C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"GAPR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"LG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"OB C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"LOK C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"KCP C2",sub:"centralny",typ:"studia"},
+{od:"2026-03-09",do:"2026-03-13",op:"FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-09",do:"2026-03-13",op:"SMG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-16",do:"2026-03-20",op:"AŚ C1",sub:"centralny",typ:"górnictwo"},{od:"2026-03-16",do:"2026-03-20",op:"LOK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"GDP C2",sub:"centralny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"KCP C2",sub:"centralny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"PNT C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-23",do:"2026-03-27",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"ŚIP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"LOK C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-30",do:"2026-04-03",op:"LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-06",do:"2026-04-10",op:"AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-06",do:"2026-04-10",op:"FG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-13",do:"2026-04-17",op:"LOK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"SMG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"KCP C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-20",do:"2026-04-24",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"OB C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"LOK C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-27",do:"2026-05-01",op:"LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-04",do:"2026-05-08",op:"FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-04",do:"2026-05-08",op:"GAPR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-04",do:"2026-05-08",op:"PNT C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-11",do:"2026-05-15",op:"AŚ C1",sub:"centralny",typ:"górnictwo"},{od:"2026-05-11",do:"2026-05-15",op:"LOK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"WC C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"KCP C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-18",do:"2026-05-22",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-18",do:"2026-05-22",op:"SMG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-18",do:"2026-05-22",op:"GDP C2",sub:"centralny",typ:"szkolenia"},{od:"2026-05-18",do:"2026-05-22",op:"LOK C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-25",do:"2026-05-29",op:"LG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-25",do:"2026-05-29",op:"ŚIP C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-01",do:"2026-06-05",op:"FG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-08",do:"2026-06-12",op:"AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-08",do:"2026-06-12",op:"LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-15",do:"2026-06-19",op:"ARR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"LOK C2",sub:"centralny",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"KCP C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-22",do:"2026-06-26",op:"OB C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-22",do:"2026-06-26",op:"PNT C2",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-29",do:"2026-07-03",op:"FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-29",do:"2026-07-03",op:"GAPR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-29",do:"2026-07-03",op:"LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"KCP Z2",sub:"zachodni",typ:"studia"},
+{od:"2026-01-05",do:"2026-01-09",op:"GAPR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-01-12",do:"2026-01-16",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-01-26",do:"2026-01-30",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"ZGIP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-02-02",do:"2026-02-06",op:"WC Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-02-09",do:"2026-02-13",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-02-23",do:"2026-02-27",op:"GAPR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-03-09",do:"2026-03-13",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-03-09",do:"2026-03-13",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-04-06",do:"2026-04-10",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"GAPR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"ZGIP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-05-04",do:"2026-05-08",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"WC Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-06-01",do:"2026-06-05",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-06-01",do:"2026-06-05",op:"GAPR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-06-01",do:"2026-06-05",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"KCP Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-06-29",do:"2026-07-03",op:"ARR Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-06-29",do:"2026-07-03",op:"WR Z2",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"KCP P2",sub:"południowy",typ:"studia"},
+{od:"2026-01-12",do:"2026-01-16",op:"BCP P1",sub:"południowy",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"KCP P2",sub:"południowy",typ:"szkolenia"},
+{od:"2026-02-02",do:"2026-02-06",op:"WC P1",sub:"południowy",typ:"szkolenia"},{od:"2026-02-09",do:"2026-02-13",op:"HRP P2",sub:"południowy",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"KCP P2",sub:"południowy",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"BCP P1",sub:"południowy",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"KCP P2",sub:"południowy",typ:"szkolenia"},
+{od:"2026-04-13",do:"2026-04-17",op:"HRP P2",sub:"południowy",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"KCP P2",sub:"południowy",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"BCP P1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-05-11",do:"2026-05-15",op:"WC P1",sub:"południowy",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"KCP P2",sub:"południowy",typ:"szkolenia"},
+{od:"2026-06-08",do:"2026-06-12",op:"BCP P1",sub:"południowy",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"HRP P2",sub:"południowy",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"KCP P2",sub:"południowy",typ:"szkolenia"},
+],"6.06":[
+{od:"2026-01-05",do:"2026-01-09",op:"6ARR N1",sub:"północny",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"6ZG N1",sub:"północny",typ:"szkolenia"},
+{od:"2026-02-02",do:"2026-02-06",op:"6ARR N1",sub:"północny",typ:"szkolenia"},{od:"2026-02-02",do:"2026-02-06",op:"6HRP N1",sub:"północny",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"6ZG N1",sub:"północny",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"6ARR N1",sub:"północny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"6ZG N1",sub:"północny",typ:"szkolenia"},{od:"2026-03-30",do:"2026-04-03",op:"6ARR N1",sub:"północny",typ:"szkolenia"},
+{od:"2026-04-13",do:"2026-04-17",op:"6HRP N1",sub:"północny",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"6ZG N1",sub:"północny",typ:"szkolenia"},{od:"2026-04-27",do:"2026-05-01",op:"6ARR N1",sub:"północny",typ:"szkolenia"},
+{od:"2026-05-11",do:"2026-05-15",op:"6ZG N1",sub:"północny",typ:"szkolenia"},{od:"2026-05-25",do:"2026-05-29",op:"6ARR N1",sub:"północny",typ:"szkolenia"},
+{od:"2026-06-08",do:"2026-06-12",op:"6HRP N1",sub:"północny",typ:"szkolenia"},{od:"2026-06-08",do:"2026-06-12",op:"6ZG N1",sub:"północny",typ:"szkolenia"},{od:"2026-06-22",do:"2026-06-26",op:"6ARR N1",sub:"północny",typ:"szkolenia"},
+{od:"2025-12-29",do:"2026-01-02",op:"6FG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-05",do:"2026-01-09",op:"6ARL C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-05",do:"2026-01-09",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-12",do:"2026-01-16",op:"6DRK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-12",do:"2026-01-16",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-19",do:"2026-01-23",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"6LG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-01-26",do:"2026-01-30",op:"6AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"6FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"6GAPR C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-02",do:"2026-02-06",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-09",do:"2026-02-13",op:"6DRK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-09",do:"2026-02-13",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-09",do:"2026-02-13",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-16",do:"2026-02-20",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-16",do:"2026-02-20",op:"6LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-02-23",do:"2026-02-27",op:"6FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"6SMG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"6ARL C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-02",do:"2026-03-06",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-09",do:"2026-03-13",op:"6DRK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-09",do:"2026-03-13",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-09",do:"2026-03-13",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-16",do:"2026-03-20",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"6LG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-03-23",do:"2026-03-27",op:"6AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"6FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"6GAPR C1",sub:"centralny",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"6SMG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-06",do:"2026-04-10",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-13",do:"2026-04-17",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-13",do:"2026-04-17",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-04-20",do:"2026-04-24",op:"6ARL C1",sub:"centralny",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"6FG C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-11",do:"2026-05-15",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-11",do:"2026-05-15",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-05-18",do:"2026-05-22",op:"6AŚ C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-18",do:"2026-05-22",op:"6FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-05-18",do:"2026-05-22",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-01",do:"2026-06-05",op:"6GAPR C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-08",do:"2026-06-12",op:"6CSI C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-08",do:"2026-06-12",op:"6PM C1",sub:"centralny",typ:"szkolenia"},
+{od:"2026-06-15",do:"2026-06-19",op:"6ARL C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"6FG C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"6HRP C1",sub:"centralny",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"6LOK C1",sub:"centralny",typ:"szkolenia"},
+{od:"2025-12-29",do:"2026-01-02",op:"6RIPH Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-01-12",do:"2026-01-16",op:"6HRP Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-01-26",do:"2026-01-30",op:"6LGD Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-02-16",do:"2026-02-20",op:"6RIPH Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"6LGD Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"6HRP Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-04-06",do:"2026-04-10",op:"6LGD Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-04-06",do:"2026-04-10",op:"6RIPH Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-05-04",do:"2026-05-08",op:"6HRP Z1",sub:"zachodni",typ:"szkolenia"},{od:"2026-05-25",do:"2026-05-29",op:"6RIPH Z1",sub:"zachodni",typ:"szkolenia"},
+{od:"2026-01-12",do:"2026-01-16",op:"6BCP S1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-01-19",do:"2026-01-23",op:"6AŚ S1",sub:"południowy",typ:"szkolenia"},{od:"2026-01-19",do:"2026-01-23",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-02-16",do:"2026-02-20",op:"6BCP S1",sub:"południowy",typ:"szkolenia"},{od:"2026-02-23",do:"2026-02-27",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-03-02",do:"2026-03-06",op:"6AŚ S1",sub:"południowy",typ:"szkolenia"},{od:"2026-03-16",do:"2026-03-20",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},{od:"2026-03-23",do:"2026-03-27",op:"6BCP S1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-04-13",do:"2026-04-17",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},{od:"2026-04-20",do:"2026-04-24",op:"6AŚ S1",sub:"południowy",typ:"szkolenia"},{od:"2026-04-27",do:"2026-05-01",op:"6BCP S1",sub:"południowy",typ:"szkolenia"},
+{od:"2026-05-18",do:"2026-05-22",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},{od:"2026-06-01",do:"2026-06-05",op:"6BCP S1",sub:"południowy",typ:"szkolenia"},{od:"2026-06-15",do:"2026-06-19",op:"6DEL S1",sub:"południowy",typ:"szkolenia"},
+]};
+
+const LK={"ARR C1":"https://www.zielonyslask.rozwojowe.eu","ARR Z1":"https://www.zielonekompetencje.rozwojowe.eu/","AŚ C1":"https://psf.wst.pl/","SCD C1":"https://www.facebook.com/projektzieloneslaskie/","FG C1":"https://zielonybur.fgsa.pl","GAPR C1":"https://gapr.pl/oferta/projekty-unijne/aktualne-projekty-unijne/zielone-kompetencje","LG C1":"https://projektydofinansowane.pl/","LOK C1":"https://www.projekty.lok.edu.pl/","OB C1":"http://www.kompetencje.oswiata-odn.pl","SMG C1":"https://smgkrc.com/projekty-unijne/subregion-centralny-inwestuje-w-zielone-umiejetnosci","BCP P1":"https://zbur.bcp.org.pl/","ŚIP C1":"https://inkubatoreu.pl/uslugi-rozwojowe-dotacje-na-szkolenia-i-studia-podyplomowe/","WC C1":"https://www.wektor.org.pl/projekty/slaski-okreg-szkoleniowy-subregion-centralny/","WC P1":"https://www.wektor.org.pl/projekty/slaski-okreg-szkoleniowy-subregion-poludniowy/","WC Z1":"https://www.wektor.org.pl/projekty/slaski-okreg-szkoleniowy-subregion-zachodni/","HRP C1":"http://katowiceFST.hrp.com.pl/","GAPR Z2":"https://1017zachodni.gapr.pl/","HRP P2":"http://slask-poludnie.przepisnarozwoj.eu","GDP C2":"https://www.gdp-krakow.pl/","LOK C2":"https://www.projekty.lok.edu.pl/","WR Z2":"http://www.lgd-jastrzebie.org.pl","ZGIP Z2":"https://zielonekompetencje.subregion.pl/","KCP C2":"http://www.krajowecentrumpracy.pl","KCP P2":"http://www.krajowecentrumpracy.pl","KCP Z2":"http://www.krajowecentrumpracy.pl","PNT C2":"https://technoparkgliwice.pl/projekty/zielony-jest-modny/","6FG C1":"http://www.fgsa.pl/kompetencje","6GAPR C1":"http://www.gapr.pl/","6AŚ C1":"https://psf2.wst.pl/","6DRK C1":"https://psf2-drkurnicki.eu/","6HRP C1":"http://www.slask-centralny.przepisnarozwoj.eu/","6CSI C1":"https://akademiakwalifikacji.csi.info.pl/","6SMG C1":"https://smgkrc.com/projekty-unijne/akademia-nowych-umiejetnosci","6PM C1":"https://bur.eltrans.slask.pl/","6LG C1":"https://projektydofinansowane.pl/projekt-doskonalenie-umiejetnosci-twoja-droga-do-sukcesu/","6LOK C1":"https://projekty.lok.edu.pl/","6ARL C1":"https://www.arl.org.pl/kadry-przyszlosci-kompleksowe-wsparcie-rozwoju-osob-doroslych-z-subregionu-centralnego-woj-slaskiego/","6BCP S1":"https://fbur.bcp.org.pl/","6AŚ S1":"https://psf3.wst.pl/","6ZG N1":"http://bur-subregion.pl/","6HRP N1":"https://hrpgrants.com.pl/projekty/przepis-na-rozwoj-wsparcie-doroslych-subregion-polnocny/","6ARR N1":"https://www.rozwojowe.eu/psf9/","6RIPH Z1":"http://www.riph.com.pl/","6HRP Z1":"http://www.slask-zachodni.przepisnarozwoj.eu/","6LGD Z1":"http://lgd-jastrzebie.org.pl/","6DEL S1":"https://kwalifikacje.deltapartner.org.pl/"};
+const NM={"ARR C1":"ARR Częstochowa","ARR Z1":"ARR Częstochowa","AŚ C1":"Akademia Śląska","SCD C1":"Dr Kurnicki","FG C1":"Fundusz Górnośląski","GAPR C1":"GAPR","LG C1":"LG PROJECT","LOK C1":"Liga Obrony Kraju","OB C1":"OŚWIATA i BIZNES","SMG C1":"SMG/KRC","BCP P1":"Bielskie Centrum Przedsięb.","ŚIP C1":"Śląski Inkubator Przedsięb.","WC C1":"WEKTOR CONSULTING","WC P1":"WEKTOR CONSULTING","WC Z1":"WEKTOR CONSULTING","HRP C1":"HRP Grants","GAPR Z2":"GAPR","HRP P2":"HRP Grants","GDP C2":"Grupa Doradcza Projekt","LOK C2":"Liga Obrony Kraju II","WR Z2":"LGD Wspólny Rozwój","ZGIP Z2":"Związek Gmin Sub. Zach.","KCP C2":"Krajowe Centrum Pracy","KCP P2":"Krajowe Centrum Pracy","KCP Z2":"Krajowe Centrum Pracy","PNT C2":"Technopark Gliwice","6FG C1":"Fundusz Górnośląski","6GAPR C1":"GAPR","6AŚ C1":"Akademia Śląska","6DRK C1":"Dr Kurnicki","6HRP C1":"HRP Grants","6CSI C1":"Centrum Szkoleń i Innowacji","6SMG C1":"SMG/KRC","6PM C1":"EL-TRANS","6LG C1":"LG PROJECT","6LOK C1":"Liga Obrony Kraju","6ARL C1":"Agencja Rozwoju Lokalnego","6BCP S1":"Bielskie Centrum Przedsięb.","6AŚ S1":"Akademia Śląska","6DEL S1":"Delta Partner","6ZG N1":"Związek Gmin Sub. Płn.","6HRP N1":"HRP Grants","6ARR N1":"ARR Częstochowa","6RIPH Z1":"RIPH Gliwice","6HRP Z1":"HRP Grants","6LGD Z1":"LGD Wspólny Rozwój"};
+const SZ={"GAPR C1":{cel:375},"AŚ C1":{cel:5035},"LOK C1":{cel:4138},"LOK C2":{cel:850},"6LG C1":{cel:690},"6AŚ C1":{cel:5035},"SCD C1":{warn:"⚠️ Operator wstrzymał nabory"}};
+const SC={centralny:{a:"#60a5fa",b:"#1e3a5f"},zachodni:{a:"#4ade80",b:"#1a3d2e"},południowy:{a:"#c084fc",b:"#3b1f6e"},północny:{a:"#fb923c",b:"#5c3310"}};
+
+function gM(d){const t=new Date(d),y=t.getDay();t.setDate(t.getDate()-y+(y===0?-6:1));t.setHours(0,0,0,0);return t}
+function aD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
+function fm(d){return d.toISOString().slice(0,10)}
+function fP(s){return s.replace(/-/g,".")}
+function gW(){const m=gM(new Date());return[0,1,2].map(i=>{const s=aD(m,i*7),e=aD(s,4);return{s:fm(s),e:fm(e),l:i===0?"Ten tydzień":i===1?"Przyszły tydzień":"Za 2 tygodnie"}})}
+
+function App(){
+  const[wi,sW]=useState(0),[pf,sP]=useState("all"),[sf,sS]=useState("all");
+  const wk=gW(),w=wk[wi];
+  let en=[];
+  if(pf==="all"||pf==="10.17")D["10.17"].forEach(x=>{if(x.od>=w.s&&x.od<=w.e)en.push({...x,p:"10.17"})});
+  if(pf==="all"||pf==="6.06")D["6.06"].forEach(x=>{if(x.od>=w.s&&x.od<=w.e)en.push({...x,p:"6.06"})});
+  if(sf!=="all")en=en.filter(x=>x.sub===sf);
+  const gr={};en.forEach(x=>{if(!gr[x.sub])gr[x.sub]=[];gr[x.sub].push(x)});
+  const subs=["centralny","zachodni","południowy","północny"];
+
+  useEffect(()=>{const iv=setInterval(()=>{const n=new Date();if(n.getDay()===1&&n.getHours()===8&&n.getMinutes()===0)location.reload()},60000);return()=>clearInterval(iv)},[]);
+
+  return h("div",null,
+    h("div",{className:"hd"},h("div",{className:"w"},
+      h("h1",null,"📋 Monitor Naborów PSF Śląskie"),
+      h("p",{className:"su"},"10.17 (zielone kompetencje) + 6.06 (usługi rozwojowe) • do 5 000 zł/os. • 95% dofinansowania • auto-odświeżanie pon. 8:00"),
+      h("div",{className:"wt"},wk.map((x,i)=>h("button",{key:i,className:wi===i?"on":"",onClick:()=>sW(i)},h("div",null,x.l),h("small",null,fP(x.s)+" – "+fP(x.e)))))
+    )),
+    h("div",{className:"w",style:{paddingTop:12,paddingBottom:40}},
+      h("div",{className:"fb"},
+        h("span",{className:"fl"},"Projekt:"),
+        h("div",{className:"fg"},
+          ["all","10.17","6.06"].map(v=>h("button",{key:v,className:"fp"+(pf===v?" on":""),onClick:()=>sP(v),
+            style:pf===v&&v==="10.17"?{color:"#4ade80",background:"rgba(74,222,128,0.15)"}:pf===v&&v==="6.06"?{color:"#fb923c",background:"rgba(251,146,60,0.15)"}:{}
+          },v==="all"?"Wszystkie":v))
+        ),
+        h("span",{className:"fl",style:{marginLeft:8}},"Subregion:"),
+        h("div",{className:"fg"},
+          h("button",{className:"fp"+(sf==="all"?" on":""),onClick:()=>sS("all")},"Wszystkie"),
+          subs.map(s=>h("button",{key:s,className:"fp"+(sf===s?" on":""),onClick:()=>sS(s),
+            style:sf===s?{color:SC[s].a,background:SC[s].a+"22"}:{}},s))
+        ),
+      ),
+      h("div",{className:"ss"},
+        [{l:"Łącznie",v:en.length,c:"#60a5fa"},{l:"10.17",v:en.filter(x=>x.p==="10.17").length,c:"#4ade80"},{l:"6.06",v:en.filter(x=>x.p==="6.06").length,c:"#fb923c"},{l:"Subregionów",v:Object.keys(gr).length,c:"#c084fc"}].map(s=>
+          h("div",{key:s.l},h("b",{style:{color:s.c}},s.v),h("span",null,s.l)))
+      ),
+      Object.entries(gr).sort(([a],[b])=>a.localeCompare(b,"pl")).map(([sub,items])=>{
+        const c=SC[sub]||SC.centralny;
+        return h("div",{key:sub,className:"sg"},
+          h("div",{className:"sh"},h("div",{className:"sb",style:{background:c.a}}),h("h2",{style:{color:c.a}},"Subregion "+sub),h("span",{className:"bg",style:{background:c.a+"18",color:c.a}},items.length)),
+          h("div",{className:"cl"},items.map((e,i)=>{
+            const sz=SZ[e.op];
+            return h("div",{key:i,className:"cd",style:{background:"linear-gradient(135deg,"+c.b+"cc,#0f172a)",border:"1px solid "+c.a+"18"}},
+              h("div",{className:"ct"},
+                h("div",{className:"cm"},
+                  h("div",{className:"tg"},h("span",{className:e.p==="10.17"?"tg t1":"tg t6"},e.p),h("span",{className:"tg tt"},e.typ)),
+                  h("h3",null,e.op),
+                  h("div",{className:"nm"},NM[e.op]||""),
+                  h("div",{className:"dt"},"📅 "+fP(e.od)+" — "+fP(e.do)),
+                  h("div",{className:"sz"},
+                    sz&&sz.cel?h("span",{style:{fontSize:10,padding:"2px 7px",borderRadius:5,fontWeight:700,background:"rgba(96,165,250,0.12)",color:"#60a5fa"}},"🎯 Cel: "+sz.cel+" os."):null,
+                    sz&&sz.warn?h("span",{style:{fontSize:10,padding:"2px 7px",borderRadius:5,fontWeight:700,background:"rgba(239,68,68,0.12)",color:"#f87171"}},sz.warn):null,
+                    h("span",{style:{fontSize:10,padding:"2px 7px",borderRadius:5,fontWeight:600,background:"rgba(74,222,128,0.08)",color:"#4ade80"}},"do 5 000 zł • 95%")
+                  )
+                ),
+                h("div",{className:"cs"},LK[e.op]?h("a",{href:LK[e.op],target:"_blank",rel:"noopener noreferrer",className:"bn",style:{background:c.a+"12",border:"1px solid "+c.a+"28",color:c.a}},"🔗 Strona"):null)
+              ))
+          })))
+      }),
+      en.length===0?h("div",{className:"em"},"Brak naborów w tym tygodniu dla wybranych filtrów."):null,
+      h("div",{className:"ft"},h("strong",{style:{color:"#64748b"}},"ℹ️ "),"Dane: harmonogram 10.17 (v11.1.1, 13.02.2026) + 6.06 (v6, 29.12.2025). Wszystkie projekty: do 5 000 zł/os., 95% dofinansowania, 5% wkład własny. Znane cele projektów z mapadotacji.gov.pl. SCD C1 — operator wstrzymał nabory. Widok przeskakuje na nowy tydzień w pon. o 8:00.")
+    )
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>
