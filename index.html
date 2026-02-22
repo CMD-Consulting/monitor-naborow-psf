@@ -167,12 +167,12 @@ function App(){
   const gr={};en.forEach(x=>{if(!gr[x.sub])gr[x.sub]=[];gr[x.sub].push(x)});
   const subs=["centralny","zachodni","południowy","północny"];
 
-  useEffect(()=>{const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()===11&&n.getMinutes()===40)location.reload()},30000);return()=>clearInterval(iv)},[]);
+  useEffect(()=>{const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()===11&&n.getMinutes()===50)window.location.href=window.location.pathname+'?v='+Date.now()},30000);return()=>clearInterval(iv)},[]);
 
   return h("div",null,
     h("div",{className:"hd"},h("div",{className:"w"},
       h("h1",null,"📋 Monitor Naborów PSF Śląskie"),
-      h("p",{className:"su"},"10.17 (zielone kompetencje) + 6.06 (usługi rozwojowe) • do 5 000 zł/os. • 95% dofinansowania • auto-odświeżanie ndz. 11:40"),
+      h("p",{className:"su"},"10.17 (zielone kompetencje) + 6.06 (usługi rozwojowe) • do 5 000 zł/os. • 95% dofinansowania • auto-odświeżanie ndz. 11:50"),
       h("div",{className:"wt"},wk.map((x,i)=>h("button",{key:i,className:wi===i?"on":"",onClick:()=>sW(i)},h("div",null,x.l),h("small",null,fP(x.s)+" – "+fP(x.e)))))
     )),
     h("div",{className:"w",style:{paddingTop:12,paddingBottom:40}},
