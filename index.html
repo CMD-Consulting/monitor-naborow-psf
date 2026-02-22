@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Monitor Naborów PSF Śląskie</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -167,7 +170,7 @@ function App(){
   const gr={};en.forEach(x=>{if(!gr[x.sub])gr[x.sub]=[];gr[x.sub].push(x)});
   const subs=["centralny","zachodni","południowy","północny"];
 
-  useEffect(()=>{const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()===11&&n.getMinutes()===50)window.location.href=window.location.pathname+'?v='+Date.now()},30000);return()=>clearInterval(iv)},[]);
+  useEffect(()=>{let done=false;const iv=setInterval(()=>{if(done)return;const n=new Date();if(n.getDay()===0&&n.getHours()===11&&n.getMinutes()>=50){done=true;fetch(window.location.pathname,{cache:'no-store'}).then(r=>r.text()).then(()=>{window.location.replace(window.location.pathname+'?r='+Date.now())})}},15000);return()=>clearInterval(iv)},[]);
 
   return h("div",null,
     h("div",{className:"hd"},h("div",{className:"w"},
