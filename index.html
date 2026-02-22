@@ -64,7 +64,7 @@ const {useState,useEffect}=React,h=React.createElement;
 
 const SC={centralny:{a:"#60a5fa",b:"#1e3a5f"},zachodni:{a:"#4ade80",b:"#1a3d2e"},południowy:{a:"#c084fc",b:"#3b1f6e"},północny:{a:"#fb923c",b:"#5c3310"}};
 
-function gM(d){const t=new Date(d),y=t.getDay();t.setDate(t.getDate()-y+(y===0?-6:1));t.setHours(0,0,0,0);return t}
+function gM(d){const t=new Date(d),y=t.getDay();t.setDate(t.getDate()-y+1);t.setHours(0,0,0,0);return t}
 function aD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
 function fm(d){return d.toISOString().slice(0,10)}
 function fP(s){return s.replace(/-/g,".")}
@@ -76,7 +76,7 @@ function App(){
 
   useEffect(()=>{fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(d=>setData(d)).catch(e=>setErr(e.message))},[]);
 
-  useEffect(()=>{const k='psf-last-refresh';const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()>=12){const today=n.toDateString();if(localStorage.getItem(k)!==today){localStorage.setItem(k,today);window.location.href=window.location.pathname+'?r='+Date.now()}}},15000);return()=>clearInterval(iv)},[]);
+  useEffect(()=>{const k='psf-last-refresh';const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()>=12&&n.getMinutes()>=25){const today=n.toDateString();if(localStorage.getItem(k)!==today){localStorage.setItem(k,today);window.location.href=window.location.pathname+'?r='+Date.now()}}},15000);return()=>clearInterval(iv)},[]);
 
   if(err)return h("div",{style:{color:"#f87171",textAlign:"center",padding:60}},"Błąd ładowania danych: "+err);
   if(!data)return h("div",{style:{color:"#64748b",textAlign:"center",padding:60}},"Ładowanie danych...");
@@ -93,7 +93,7 @@ function App(){
   return h("div",null,
     h("div",{className:"hd"},h("div",{className:"w"},
       h("h1",null,"📋 Monitor Naborów PSF Śląskie"),
-      h("p",{className:"su"},"10.17 (zielone kompetencje) + 6.06 (usługi rozwojowe) • do 5 000 zł/os. • 95% dofinansowania • auto-odświeżanie ndz. 12:00 • dane z data.json"),
+      h("p",{className:"su"},"10.17 (zielone kompetencje) + 6.06 (usługi rozwojowe) • do 5 000 zł/os. • 95% dofinansowania • auto-odświeżanie ndz. 12:25 • dane z data.json"),
       h("div",{className:"wt"},wk.map((x,i)=>h("button",{key:i,className:wi===i?"on":"",onClick:()=>sW(i)},h("div",null,x.l),h("small",null,fP(x.s)+" – "+fP(x.e)))))
     )),
     h("div",{className:"w",style:{paddingTop:12,paddingBottom:40}},
@@ -139,7 +139,7 @@ function App(){
           })))
       }),
       en.length===0?h("div",{className:"em"},"Brak naborów w tym tygodniu dla wybranych filtrów."):null,
-      h("div",{className:"ft"},h("strong",{style:{color:"#64748b"}},"ℹ️ "),"Dane: harmonogram 10.17 (v11.1.1, 13.02.2026) + 6.06 (v6, 29.12.2025). Wszystkie projekty: do 5 000 zł/os., 95% dofinansowania, 5% wkład własny. Znane cele projektów z mapadotacji.gov.pl. SCD C1 — operator wstrzymał nabory. Dane pobierane z data.json. Auto-odświeżanie co ndz. od 12:00.")
+      h("div",{className:"ft"},h("strong",{style:{color:"#64748b"}},"ℹ️ "),"Dane: harmonogram 10.17 (v11.1.1, 13.02.2026) + 6.06 (v6, 29.12.2025). Wszystkie projekty: do 5 000 zł/os., 95% dofinansowania, 5% wkład własny. Znane cele projektów z mapadotacji.gov.pl. SCD C1 — operator wstrzymał nabory. Dane pobierane z data.json. Auto-odświeżanie co ndz. od 12:25. W niedzielę widok pokazuje nadchodzący tydzień.")
     )
   );
 }
