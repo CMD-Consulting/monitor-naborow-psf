@@ -1,0 +1,20 @@
+{
+  "name": "monitor-naborow",
+  "version": "3.0.0",
+  "description": "Agent monitorujący nabory szkoleniowe z BUR i innych źródeł",
+  "main": "index.js",
+  "scripts": {
+    "check-now": "node index.js --now",
+    "start-daemon": "pm2 start ecosystem.config.js",
+    "stop-daemon": "pm2 stop monitor-naborow",
+    "restart": "pm2 restart monitor-naborow",
+    "status": "pm2 status monitor-naborow",
+    "logs": "pm2 logs monitor-naborow --lines 100",
+    "last-report": "ls -t reports/*.html | head -1 | xargs xdg-open"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "node-notifier": "^10.0.1"
+  }
+}
