@@ -170,7 +170,7 @@ function App(){
   const gr={};en.forEach(x=>{if(!gr[x.sub])gr[x.sub]=[];gr[x.sub].push(x)});
   const subs=["centralny","zachodni","południowy","północny"];
 
-  useEffect(()=>{let done=false;const iv=setInterval(()=>{if(done)return;const n=new Date();if(n.getDay()===0&&n.getHours()===12&&n.getMinutes()===0){done=true;fetch(window.location.pathname,{cache:'no-store'}).then(r=>r.text()).then(()=>{window.location.replace(window.location.pathname+'?r='+Date.now())})}},15000);return()=>clearInterval(iv)},[]);
+  useEffect(()=>{const k='psf-last-refresh';const iv=setInterval(()=>{const n=new Date();if(n.getDay()===0&&n.getHours()>=12){const today=n.toDateString();if(localStorage.getItem(k)!==today){localStorage.setItem(k,today);window.location.href=window.location.pathname+'?r='+Date.now()}}},15000);return()=>clearInterval(iv)},[]);
 
   return h("div",null,
     h("div",{className:"hd"},h("div",{className:"w"},
